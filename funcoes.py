@@ -35,3 +35,34 @@ def posiciona_frota (fr):
             for pos in bar:
                 grid[pos[0]][pos[1]] = 1
     return grid
+def afundados(fr, tab):
+    afundado = 0
+    pos = []
+    i = 0
+    while i < 10:
+        j = 0
+        while j < 10:
+            if tab[i][j] == 'X':
+                pos.append([i, j])
+            j += 1
+        i += 1
+    for val in fr.values():
+        for bar in val:
+            cont = 0
+            for p in bar:
+                if p in pos:
+                    cont += 1
+            if cont == len(bar):
+                afundado += 1
+    return afundado
+def posicao_valida (fr,lin,col,ori,siz):
+    posicoes = define_posicoes(lin,col,ori,siz)
+    for p in posicoes:
+        if p[0] < 0 or p[0] > 9 or p[1] < 0 or p[1] > 9:
+            return False
+    for val in fr.values():
+        for bar in val:
+            for p in posicoes:
+                if p in bar:
+                    return False
+    return True
