@@ -60,6 +60,12 @@ frota_oponente = {
 
 tabuleiro_oponente = posiciona_frota(frota_oponente)
 tabuleiro_jogador = posiciona_frota(frota)
+total_navios_oponente = 0
+total_navios = 0
+for lista in frota_oponente.values():
+    total_navios_oponente += len(lista)
+for lista in frota.values():
+    total_navios += len(lista)
 
 montar = True
 
@@ -85,18 +91,17 @@ while jogando:
         montar = False
     else:
         tabuleiro_oponente = faz_jogada(tabuleiro_oponente, lin, col)
-        while True:
-            col_oponente = random.randint(0,9)
-            lin_oponente = random.randint(0,9)
-            if str(tabuleiro_jogador[lin][col]) in "X-":
-                continue
-            else:
-                print(f"Seu oponente está atacando na linha {lin_oponente} e coluna {col_oponente}")
-                faz_jogada(tabuleiro_jogador, lin_oponente, col_oponente)
-            break
-    if afundados(frota, tabuleiro_jogador) == 10:
-        print("Xi! O oponente derrubou toda a sua frota =(")
-        jogando = False
-    if afundados(frota_oponente, tabuleiro_oponente) == 10:
+    if afundados(frota_oponente, tabuleiro_oponente) == total_navios_oponente:
         print("Parabéns! Você derrubou todos os navios do seu oponente!")
+        jogando = False
+        continue
+    while True:
+            lin_oponente = random.randint(0, 9)
+            col_oponente = random.randint(0, 9)
+            if str(tabuleiro_jogador[lin_oponente][col_oponente]) not in "X-":
+                print(f"Seu oponente está atacando na linha {lin_oponente} e coluna {col_oponente}")
+                tabuleiro_jogador = faz_jogada(tabuleiro_jogador, lin_oponente, col_oponente)
+                break
+    if afundados(frota, tabuleiro_jogador) == total_navios:
+        print("Xi! O oponente derrubou toda a sua frota =(")
         jogando = False
