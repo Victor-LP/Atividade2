@@ -70,38 +70,22 @@ while jogando:
     print(monta_tabuleiros(tabuleiro_jogador, tabuleiro_oponente))
 
     while True:
-        entrada = input("Jogador, qual linha deseja atacar? ")
-        try:
-            linha_input = int(entrada)
-        except ValueError:
-            print("Linha inválida!")
-            continue
-        if not (0 <= linha_input <= 9):
-            print("Linha inválida!")
-            continue
-        break
+        lin = int(input("Jogador, qual linha deseja atacar? "))
+        if 0 <= lin <= 9:
+            break
+        print("Linha inválida!")
 
     while True:
-        entrada = input("Jogador, qual coluna deseja atacar? ")
-        try:
-            coluna_input = int(entrada)
-        except ValueError:
-            print("Coluna inválida!")
-            continue
-        if not (0 <= coluna_input <= 9):
-            print("Coluna inválida!")
-            continue
-        break
+        col = int(input("Jogador, qual linha deseja atacar? "))
+        if 0 <= col <= 9:
+            break
+        print("Linha inválida!")
 
-    if not (0 <= linha_input <= 9 and 0 <= coluna_input <= 9):
-        print("Posição fora dos limites do tabuleiro! Informe números entre 0 e 9.")
-        continue
-
-    if str(tabuleiro_oponente[linha_input][coluna_input]) in "X-":
-        print(f"A posição linha {linha_input} e coluna {coluna_input} já foi informada anteriormente!")
-        continue
-
-    tabuleiro_oponente = faz_jogada(tabuleiro_oponente, linha_input, coluna_input)
+    if str(tabuleiro_oponente[lin][col]) in "X-":
+        print(f"A posição linha {lin} e coluna {col} já foi informada anteriormente!")
+        # volta para o passo de perguntar a linha novamente
+    else:
+        tabuleiro_oponente = faz_jogada(tabuleiro_oponente, lin, col)
 
     if afundados(frota_oponente, tabuleiro_oponente) == total_navios_oponente:
         print("Parabéns! Você derrubou todos os navios do seu oponente!")
