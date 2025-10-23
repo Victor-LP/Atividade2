@@ -64,11 +64,13 @@ tabuleiro_jogador = posiciona_frota(frota)
 total_navios_oponente = 0
 for lista in frota_oponente.values():
     total_navios_oponente += len(lista)
+montar = True
 
 jogando = True
 while jogando:
-    print(monta_tabuleiros(tabuleiro_jogador, tabuleiro_oponente))
-
+    if montar:
+        print(monta_tabuleiros(tabuleiro_jogador, tabuleiro_oponente))
+    montar = True
     while True:
         lin = int(input("Jogador, qual linha deseja atacar? "))
         if 0 <= lin <= 9:
@@ -76,14 +78,14 @@ while jogando:
         print("Linha inválida!")
 
     while True:
-        col = int(input("Jogador, qual linha deseja atacar? "))
+        col = int(input("Jogador, qual coluna deseja atacar? "))
         if 0 <= col <= 9:
             break
-        print("Linha inválida!")
+        print("Coluna inválida!")
 
     if str(tabuleiro_oponente[lin][col]) in "X-":
         print(f"A posição linha {lin} e coluna {col} já foi informada anteriormente!")
-        # volta para o passo de perguntar a linha novamente
+        montar = False
     else:
         tabuleiro_oponente = faz_jogada(tabuleiro_oponente, lin, col)
 
